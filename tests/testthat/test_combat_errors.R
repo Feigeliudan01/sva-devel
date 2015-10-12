@@ -23,5 +23,15 @@ test_that("Check ComBat errors for too many batch variables and confounded desig
  expect_error(ComBat(y,batch, batch), "The covariate is confounded with batch! Remove the covariate and rerun ComBat") 
  expect_error(ComBat(y,batch, cbind(treat,batch)), "At least one covariate is confounded with batch! Please remove confounded covariates and rerun ComBat")
  expect_error(ComBat(y,batch, cbind(treat,treat)), "The covariates are confounded! Please remove one or more of the covariates so the design is not confounded")
+ 
+ ## test ref batch input error
+ expect_error(ComBat(y,batch, ref.batch=NULL), 
+              "ref.batch should be a string.\n")
+ expect_error(ComBat(y,batch, ref.batch=3), 
+              "ref.batch should be a string.\n")
+ expect_error(ComBat(y,batch, ref.batch=rep(0,3)), 
+              "ref.batch should be a string.\n")
+ expect_error(ComBat(y,batch, ref.batch="lab1"), 
+              "Input reference batch is not available.\n") 
 })
 
